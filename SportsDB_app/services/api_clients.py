@@ -22,6 +22,8 @@ def get_leagues_from_api(country_name):
     data = fetch_from_api("search_all_leagues.php", {"c": country_name})
     if "countries" not in data:
         raise ValueError("Failed to fetch leagues: Missing 'countries' key")
+    if data.get("countries") is None:
+        raise ValueError("No leagues in country")
     return data["countries"]
 
 
@@ -29,4 +31,6 @@ def get_teams_from_api(league_name):
     data = fetch_from_api("search_all_teams.php", {"l": league_name})
     if "teams" not in data:
         raise ValueError("Failed to fetch teams: Missing 'teams' key")
+    if data.get("teams") is None:
+        raise ValueError("No teams in league")
     return data["teams"]
