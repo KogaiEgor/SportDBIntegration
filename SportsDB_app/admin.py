@@ -7,7 +7,7 @@ class CountryFilter(admin.SimpleListFilter):
     parameter_name = "country"
 
     def lookups(self, request, model_admin):
-        countries = Country.objects.all()
+        countries = Country.objects.all().order_by("name_en")
         return [(country.id, country.name_en) for country in countries]
 
     def queryset(self, request, queryset):
@@ -23,7 +23,7 @@ class LeagueFilter(admin.SimpleListFilter):
     def lookups(self, request, model_admin):
         country_id = request.GET.get("country")
         if country_id:
-            leagues = League.objects.filter(strCountry__id=country_id)
+            leagues = League.objects.filter(strCountry__id=country_id).order_by("strLeague")
             return [(league.id, league.strLeague) for league in leagues]
         return []
 

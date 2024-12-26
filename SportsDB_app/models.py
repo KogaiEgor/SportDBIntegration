@@ -6,6 +6,9 @@ class Country(models.Model):
     name_en = models.CharField(max_length=255, unique=True, verbose_name="Country Name")
     flag_url_32 = models.URLField(max_length=500, blank=True, verbose_name="Flag URL")
 
+    class Meta:
+        ordering = ["name_en"]
+
     def __str__(self):
         return self.name_en
 
